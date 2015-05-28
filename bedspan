@@ -1,0 +1,15 @@
+#! /bin/bash 
+
+#help
+if [ -z "$1" ]
+then
+    echo "This will get total span of bedfile"
+    echo "Usage: bedspan bedfile(s)"
+    exit
+fi
+
+for i in $@; do
+    span=`zcat -f $i | awk '{OFS="\t"}{SUM+=$3-$2}END{print SUM}'`
+    echo -e $span"\t"$i
+done
+

@@ -1,0 +1,18 @@
+#! /bin/bash
+
+#help
+if [ -z "$1" ]
+then
+    echo "This will peform wc -l on gzipped files"
+    echo "Usage: wcz file(s)"
+    exit
+fi
+
+
+
+for F in "$@"; do
+    lines=`zcat -f $F | wc -l`
+    echo -e $lines"\t"$F
+done
+
+

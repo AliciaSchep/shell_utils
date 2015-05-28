@@ -1,0 +1,24 @@
+#! /bin/bash
+
+
+if [ -z "$1" ]
+then
+    echo "This will convert gzipped bedgraph to bigwig"
+    echo "Similar arguments to bedGraphToBigWig tool, but bedgraph should be gzipped"
+    echo "Usage: gzbedGraphToBigWig gzbedgraph chromsizes outdir"
+    exit
+fi
+
+
+input=$1
+gsizes=$2
+out=$3
+
+tmp=`echo $input | sed 's/.bedgraph.gz//' `".tmp.bedgraph"
+
+zcat $1 > $tmp
+bedGraphToBigWig $tmp $gsizes $out
+rm $tmp
+
+
+

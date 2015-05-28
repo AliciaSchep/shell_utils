@@ -1,0 +1,18 @@
+#! /bin/bash
+
+#help
+if [ -z "$1" ]
+then
+    echo "This will perform head on gzip file(s)"
+    echo "Usage: headz file(s)"
+    exit
+fi
+
+
+
+for F in "$@"; do
+  echo "==> "$F" <=="
+  zcat $F | head
+done
+
+

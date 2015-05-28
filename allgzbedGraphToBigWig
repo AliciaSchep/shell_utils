@@ -1,0 +1,23 @@
+#! /bin/bash
+
+if [ -z "$1" ]
+then
+    echo "This will convert all bedgraph.gz files in folder to bigwig"
+    echo "must input chromsizes file and directory for output"
+    echo "Usage: allgzbedGraphToBigWig chromsizes outdir"
+    exit
+fi
+
+
+gsizes=$1
+outdir=$2
+
+for i in *.bedgraph.gz; do
+    out=$outdir"/"`basename $i | sed 's/.bedgraph.gz/.bw/'`
+    echo "Converting "$i" to "$out
+    gzbedGraphToBigWig $i $gsizes $out
+done
+
+
+
+
