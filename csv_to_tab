@@ -1,0 +1,15 @@
+#! /bin/bash 
+
+#help
+if [ -z "$1" ];
+then
+    echo "This will convert csv file to tab delimited"
+    echo "Usage: csv_to_tab csv"
+    exit
+fi
+
+
+sed 's/,/\t/g;s/"//g' $1
+
+
+

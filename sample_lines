@@ -1,0 +1,44 @@
+#!/usr/bin/python
+import sys
+import random
+import argparse
+import numpy as np
+
+#parse arguments
+parser = argparse.ArgumentParser(description = 'Sample N lines from file using reservoir sampling')
+parser.add_argument('n', metavar='number_of_lines' , help = 'Number of lines to sample', type=int)
+parser.add_argument('--infile', metavar='filename', help = "input name")
+parser.add_argument('--out', metavar='filename' , help = 'output name')
+args = parser.parse_args()
+
+if args.infile is None:
+    infile = sys.stdin
+else:
+    infile = open(args.infile,'r')
+ 
+sample = [];
+order = np.arange(args.n) 
+
+for i,line in enumerate(infile):
+    if i < args.n:
+        sample.append(line)
+    elif i >= args.n and random.random() < args.n/float(i+1):
+        replace = random.randint(0,len(sample)-1)
+        sample[replace] = line
+        order[replace] = i
+
+infile.close()
+
+if args.out is None:
+    outfile = sys.stdout
+else:
+    outfile = open(args.out,'w')
+
+for j in np.argsort(order):
+    outfile.write(sample[j])
+
+outfile.close()
+
+
+
+

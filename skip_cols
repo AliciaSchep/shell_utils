@@ -1,0 +1,15 @@
+#! /bin/bash 
+
+#help
+if [ -z "$1" ];
+then
+    echo "This will skip columns in tab delimited file"
+    echo "Usage: skip_cols file n"
+    exit
+fi
+
+
+awk -v n=$2 '{OFS="\t"}{ for (i=n+1; i<=NF; i++) $(i-n)=$i; NF=NF-n; print $0 }' $1
+
+
+

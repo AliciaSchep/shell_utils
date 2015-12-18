@@ -1,0 +1,14 @@
+#! /bin/bash 
+
+#help
+if [ -z "$1" ];
+then
+    echo "This will skip rows in tab delimited file"
+    echo "Usage: skip_rows file n"
+    exit
+fi
+
+
+awk -v n=$2 '{OFS="\t"}NR>n{print}' $1 
+
+
